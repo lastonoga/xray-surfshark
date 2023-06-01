@@ -2,6 +2,7 @@ import asyncio
 import json
 from dotenv import dotenv_values
 import telebot
+import os
 
 config = dotenv_values(".env")
 
@@ -144,6 +145,7 @@ def update_vpn(message):
     else:
         bot.reply_to(message, "Disable VPN")
 
+    os.system('marzban restart')
 
 def run():
     test_xray_config()
