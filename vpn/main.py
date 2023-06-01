@@ -50,9 +50,16 @@ def generate_xray_outbound(vpn = None):
               "publicKey": vpn['pubKey']
             }
           ],
-          "mtu": config.get('WIREGUARG_MTU'),
+          "mtu": int(config.get('WIREGUARG_MTU')),
         }
     }
+
+def test_xray_config(vpn = None):
+    with open(config.get('XRAY_CONFIG')) as file:
+        data = json.load(file)
+
+    if not data:
+        raise Exception("No Xray Config")
 
 def update_xray(vpn = None):
     with open(config.get('XRAY_CONFIG')) as file:
@@ -139,6 +146,7 @@ def update_vpn(message):
 
 
 def run():
+    test_xray_config()
     bot.infinity_polling()
 
 if __name__ == "__main__":
